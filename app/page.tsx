@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <div>
       <Button size="lg">
-        Hello, this website is under development
+      click me
       </Button>
     </div>
   )
