@@ -63,7 +63,31 @@ const main = async () => {
         id: 1,
         unitId: 1, // Unit 1 (Belajar dasar Html...)
         order: 1,
-        title: "Nouns"
+        title: "Nouns",
+      },
+      {
+        id: 2,
+        unitId: 1, // Unit 1 (Belajar dasar Html...)
+        order: 2,
+        title: "Verbs",
+      },
+      {
+        id: 3,
+        unitId: 1, // Unit 1 (Belajar dasar Html...)
+        order: 3,
+        title: "Verbs",
+      },
+      {
+        id: 4,
+        unitId: 1, // Unit 1 (Belajar dasar Html...)
+        order: 4,
+        title: "Verbs",
+      },
+      {
+        id: 5,
+        unitId: 1, // Unit 1 (Belajar dasar Html...)
+        order: 5,
+        title: "Verbs",
       },
     ]);
 
