@@ -3,9 +3,9 @@
 import { toast } from "sonner";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect } from "react";
 import Confetti from "react-confetti";
-import { useWindowSize, useMount, useAudio } from "react-use";
+import { useAudio, useWindowSize, useMount } from "react-use";
 
 import { reduceHearts } from "@/actions/user-progress";
 import { useHeartsModal } from "@/store/use-hearts-modal";
@@ -53,16 +53,20 @@ export const Quiz = ({
   const router = useRouter();
 
   const [
+    finishAudio,
+    _f,
+    finishControls,
+  ] = useAudio({ src: "/finish.mp3", autoPlay: false }); // Matikan autoplay
+  const [
     correctAudio,
     _c,
     correctControls,
   ] = useAudio({ src: "/correct.mp3" });
-   const [
+  const [
     incorrectAudio,
     _i,
     incorrectControls,
   ] = useAudio({ src: "/incorrect.mp3" });
-
   const [pending, startTransition] = useTransition();
 
   const [lessonId] = useState(initialLessonId);
@@ -81,6 +85,13 @@ export const Quiz = ({
 
   const challenge = challenges[activeIndex];
   const options = challenge?.challengeOptions ?? [];
+
+  useEffect(() => {
+    // Memainkan finishAudio hanya jika tidak ada challenge
+    if (!challenge) {
+      finishControls.play();
+    }
+  }, [challenge, finishControls]);
 
   const onNext = () => {
     setActiveIndex((current) => current + 1);
@@ -120,7 +131,7 @@ export const Quiz = ({
             return;
           }
 
-          correctControls.play(); // audio
+          correctControls.play();
           setStatus("correct");
           setPercentage((prev) => prev + 100 / challenges.length);
 
@@ -137,7 +148,7 @@ export const Quiz = ({
             return;
           }
 
-          incorrectControls.play(); // audio
+          incorrectControls.play();
           setStatus("wrong");
 
           if (!response?.error) {
@@ -150,9 +161,9 @@ export const Quiz = ({
 
   return (
     <>
-    {incorrectAudio}
-    {correctAudio}
-
+      {finishAudio} {/* Selalu render finishAudio */}
+      {incorrectAudio}
+      {correctAudio}
       {!challenge ? (
         <>
           <Confetti

@@ -44,7 +44,7 @@ export const Sidebar = ({
         <SidebarItem
           label="Misi"
           iconSrc="/quest.png"
-          href="/quest"
+          href="/quests"
         />
         <SidebarItem
           label="Toko"
